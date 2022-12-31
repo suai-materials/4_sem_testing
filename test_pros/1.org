@@ -1,4 +1,3 @@
-#+TITLE: Лабораторная работа № 6. Тестирование производительности.
 
 Цель работы: научиться определять время работы программы на примере алгоритмов сортировки массивов.
 
@@ -93,20 +92,19 @@ int main() {
 
 Тесты:
 - 100 элементов:
-  #+DOWNLOADED: screenshot @ 2022-05-24 10:04:02
-  [[file:images/20220524-100402_screenshot.png]]
+
+  [[file:images/1.jpg]]
 
 - 1000 элементов:
-  #+DOWNLOADED: screenshot @ 2022-05-24 10:05:11
-  [[file:images/20220524-100511_screenshot.png]]
+
+  [[file:images/2.jpg]]
 
 - 10000 элементов:
-  #+DOWNLOADED: screenshot @ 2022-05-24 10:05:59
-  [[file:images/20220524-100559_screenshot.png]]
+
+  [[file:images/3.jpg]]
 
 - 100000
-
-#+DOWNLOADED: screenshot @ 2022-05-24 10:07:36
-[[file:images/20220524-100736_screenshot.png]]
+  
+  [[./images/4.jpg]]
 
 Вывод: Шейкерная сортировка менее эффективна чем сортировка выбором

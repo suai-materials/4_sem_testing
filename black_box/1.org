@@ -1,6 +1,3 @@
-#+STARTUP: nofold
-#+AUTHOR: Панков Вася
-#+Title: Лабораторная работа №3 "Тестирование программного обеспечения методом «черного ящика»"
 #+OPTIONS: tex:t
 #+OPTIONS: tex:dvipng
 #+STARTUP: latexpreview

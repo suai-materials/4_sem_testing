@@ -1,0 +1,180 @@
+*Тема: "Ручная откладка программного обеспесения"* *Цель.* Изучить
+процесс отладки программного обеспечения ручным методом.
+
+*Вариант 7*
+
+*Математическая модель:*
+
+Формула:
+
+[[file:vertopal_5165c98a99064b4f8cf974f2c1593af2/media/image1.png]]
+
+Даём пользователю ввести x, y, z, вычисляем по выше приведённой формуле
+и выводим ответ.
+
+*Спецификация:*
+
+Программа предназначена для нахождения значения по формуле в зависимости
+от переданных x, y, z.
+
+*Код программы:*
+
+mainwindow.cpp:
+
+#+begin_src c++
+#include "mainwindow.h"
+
+#include "./ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+
+: QMainWindow(parent)
+
+, ui(new Ui::MainWindow)
+
+{
+
+ui->setupUi(this);
+
+QPushButton::connect(ui->pushButton, &QPushButton::pressed, this,
+&MainWindow::OnClick);
+
+}
+
+MainWindow::~MainWindow()
+
+{
+
+delete ui;
+
+}
+
+void MainWindow::OnClick(){
+
+double x = ui->doubleSpinBox_2->value();
+
+double y = ui->doubleSpinBox->value();
+
+double z = ui->doubleSpinBox_3->value();
+
+double a = (x - 2 / y) + pow(sin(atan(z)), 2);
+
+ui->label_5->setText(QString::fromStdString(std::string("Ответ: ")) +
+QString::number(a));
+
+}
+
+main.cpp
+
+#include "mainwindow.h"
+
+#include <QApplication>
+
+int main(int argc, char *argv[])
+
+{
+
+QApplication a(argc, argv);
+
+MainWindow w;
+
+w.show();
+
+return a.exec();
+
+}
+#+end_src
+
+mainwindow.h
+
+#+begin_src c++
+#ifndef MAINWINDOW_H
+
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+
+QT_BEGIN_NAMESPACE
+
+namespace Ui { class MainWindow; }
+
+QT_END_NAMESPACE
+
+class MainWindow : public QMainWindow
+
+{
+
+Q_OBJECT
+
+public:
+
+MainWindow(QWidget *parent = nullptr);
+
+~MainWindow();
+
+void OnClick();
+
+private:
+
+Ui::MainWindow *ui;
+
+};
+
+#endif // MAINWINDOW_H
+#+end_src
+
+UI:
+
+[[file:vertopal_5165c98a99064b4f8cf974f2c1593af2/media/image2.png]]
+
+*Тестовые наборы:*
+
+| Тестовый набор значений | Ожидаемый результат | Фактический результат          | Ошибка,                  |
+|                         |                     |                                |                          |
+|                         |                     |                                | обнаружена/не обнаружена |
+| x = 0                   | Ответ не найден     | -inf                           | Обнаружена               |
+|                         |                     |                                |                          |
+| y = 0                   |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 0                   |                     |                                |                          |
+| x = 1                   | -0.5                | -0.5                           | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = 1                   |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 1                   |                     |                                |                          |
+| x = 1                   | Ответ не найден     | Ответ не найден                | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = 0                   |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 1                   |                     |                                |                          |
+| x = 1                   | -1                  | -1                             | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = 1                   |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 0                   |                     |                                |                          |
+| x = 2                   | 0.984615            | 0.984615                       | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = 1                   |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 8                   |                     |                                |                          |
+| x = 200                 | 200.9933...         | Нельзя ввести числа больше 100 | Обнаружена               |
+|                         |                     |                                |                          |
+| y = 300                 |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 500                 |                     |                                |                          |
+| x = 100                 | 99.998              | 99.998                         | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = 1000                |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = 0                   |                     |                                |                          |
+| x = -200                | -198.993            | -198.993                       | Не обнаружена            |
+|                         |                     |                                |                          |
+| y = -300                |                     |                                |                          |
+|                         |                     |                                |                          |
+| z = -500                |                     |                                |                          |
+
+| Ошибка                         | Пояснение                                      | Исправление                                                         |
+| -inf                           | Не обработана ошибка, деления на ноль          | Добавлена проверка на ноль до вычисления:                           |
+|                                |                                                |                                                                     |
+|                                |                                                | [[file:vertopal_5165c98a99064b4f8cf974f2c1593af2/media/image3.png]] |
+| Нельзя ввести числа больше 100 | Стоял ограничитель на ввод чисел от 0 до 99,99 | [[file:vertopal_5165c98a99064b4f8cf974f2c1593af2/media/image4.png]] |
